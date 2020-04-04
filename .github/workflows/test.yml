@@ -1,0 +1,30 @@
+name: Build and Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - releases/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: actions/checkout@v2
+      - name: Download Dependencies
+        run: npm install
+      - name: Build the project
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Clone this repo
+      - name: Check Commit Syntax
+        uses: adityaa30/check-commit@master

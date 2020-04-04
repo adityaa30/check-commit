@@ -1,0 +1,6 @@
+name: 'Check Commit'
+description: 'Action to check if the commit follows proper syntax'
+
+runs:
+    using: node12
+    main: dist/index.js
