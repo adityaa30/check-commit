@@ -4,7 +4,7 @@
   "description": "Action to check if the commit follows proper syntax",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc && ncc build",
+    "build": "tsc && ncc build -m",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
