@@ -8,7 +8,7 @@ on:
       - releases/**
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
@@ -19,12 +19,5 @@ jobs:
         run: npm install
       - name: Build the project
         run: npm run build
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # Clone this repo
-      - name: Check Commit Syntax
-        uses: adityaa30/check-commit@master
+      - name: Run the tests
+        run: npm run test

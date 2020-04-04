@@ -1,0 +1,16 @@
+name: Check Commit
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Check commit
+        uses: adityaa30/check-commit@master
