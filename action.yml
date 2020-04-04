@@ -1,6 +1,14 @@
-name: 'Check Commit'
-description: 'Action to check if the commit follows proper syntax'
+name: "Check Commit"
+description: "Action to check if the commit follows proper syntax"
+
+inputs:
+  compulsory-scope:
+    description: >
+      <scope> field will be compulsory inside commit header
+      specify true or false
+    required: false
+    default: "true"
 
 runs:
-    using: node12
-    main: dist/index.js
+  using: node12
+  main: dist/index.js

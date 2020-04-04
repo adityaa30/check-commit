@@ -55,6 +55,6 @@ npm run build
 ## TODO
 
 - [x] Get the commit message
-- [ ] Implement rules based on syntax defined [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html)
-- [ ] Helper functions to check commit message based on rules
+- [x] Implement rules based on syntax defined [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html)
+- [x] Helper functions to check commit message based on rules
 - [ ] Add custom **[input parameters](https://help.github.com/en/actions/building-actions/metadata-syntax-for-github-actions#inputs)**

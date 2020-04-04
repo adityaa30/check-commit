@@ -3,6 +3,8 @@ import * as core from "@actions/core";
 import Commit from "./commit";
 import ErrorCollector from "./error-helper";
 
+import { IConfig } from "./config";
+
 export const ALLOWED_TYPES = {
     feat: 'new feature for the user, not a new feature for build script',
     fix: 'bug fix for the user, not a fix to a build script',
@@ -13,31 +15,20 @@ export const ALLOWED_TYPES = {
     chore: 'updating grunt tasks etc; no production code change',
 };
 
-const regex = {
-    // Format for header: <type>(<scope>): <subject>
-    header: {
-        type: /[a-zA-Z]+/,
-        scope: /\(([a-zA-Z]+)\)/,
-        subject: /.+/, // Strictly has atleast on charater
-        combined: /([a-zA-Z]+)\(([a-zA-Z]+)\): (.+)/
-    },
-
-    // Body strictly has first line empty
-    body: /\s*\n(.+)/
-};
-
-
 export class Rule {
     private commit: Commit;
     private errors: ErrorCollector;
+    private config: IConfig;
 
-    constructor(message: string) {
+    constructor(message: string, config: IConfig) {
         this.commit = new Commit(message);
         this.errors = new ErrorCollector();
+
+        this.config = config;
     }
 
     private checkHeader(): boolean {
-        let header = this.commit.header.match(regex.header.combined);
+        let header = this.commit.header.match(this.config.header.combined);
         let ok = true;
         core.debug(`Checking commit header:\n${this.commit.header}`);
 
@@ -50,7 +41,7 @@ export class Rule {
                 + '<type>(<scope>): <subject>'
             );
 
-        } else if (!Object.keys(ALLOWED_TYPES).includes(header[1])) {
+        } else if (!Object.keys(ALLOWED_TYPES).includes(header[1].toLowerCase())) {
             // Check if type is OK
             ok = false;
 
@@ -71,7 +62,7 @@ export class Rule {
         let ok = true;
         core.debug(`Checking commit body:\n${this.commit.body}`);
 
-        let body = this.commit.body.match(regex.body);
+        let body = this.commit.body.match(this.config.body);
         if (body == null) {
             ok = false;
 
