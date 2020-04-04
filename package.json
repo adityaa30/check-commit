@@ -1,0 +1,32 @@
+{
+  "name": "check-commit",
+  "version": "1.0.0",
+  "description": "Action to check if the commit follows proper syntax",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc && ncc build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityaa30/check-commit.git"
+  },
+  "author": "adityaa30",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adityaa30/check-commit/issues"
+  },
+  "homepage": "https://github.com/adityaa30/check-commit#readme",
+  "devDependencies": {
+    "@types/node": "^13.11.0",
+    "@zeit/ncc": "^0.22.0",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/exec": "^1.0.3",
+    "@actions/github": "^2.1.1",
+    "@actions/io": "^1.0.2"
+  }
+}
