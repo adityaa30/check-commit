@@ -30,6 +30,13 @@ jobs:
         uses: adityaa30/check-commit@master
 ```
 
+## Input Parameters
+
+- `compulsory-scope`
+  - Either 'true' or 'false'
+  - Defaults to 'true'
+  - If true, scope field becomes compulsory for each commit (refer [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html))
+
 ## Project Installation
 
 **[Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)** the repository
