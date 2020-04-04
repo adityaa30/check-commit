@@ -29,6 +29,29 @@ jobs:
        uses:  adityaa30/check-commit@master
 ```
 
+## Project Installation
+
+**[Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)** the repository
+
+```bash
+# Clone the forked repository
+git clone https://github.com/<git-username>/check-commit.git
+
+# Enter project directory
+cd check-commit
+
+# Install dependencies
+npm install
+
+# Buld the project
+npm run build
+```
+
+### NOTE
+
+- Before pushing any changes, please build the project to update the `dist/index.js` in order to reflect your changes in github
+- To test the project in your local use [act](https://github.com/nektos/act)
+
 ## TODO
 
 - [x] Get the commit message
