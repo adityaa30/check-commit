@@ -1,4 +1,8 @@
 
+<a href="https://github.com/adityaa30/check-commit">
+    <img alt="GitHub Actions status" src="https://github.com/actions/checkout/workflows/Build%20and%20Test/badge.svg">
+</a>
+
 # Check Commit Syntax
 
 Action to check if the commit follows proper syntax as specified [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html)
