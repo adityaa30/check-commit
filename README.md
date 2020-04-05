@@ -37,6 +37,11 @@ jobs:
   - Defaults to 'false'
   - If true, scope field becomes compulsory for each commit (refer [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html))
 
+- `max-header-length`
+  - Should be a valid non-zero positive integer
+  - Defaults to 50
+  - Raises an error if length of commit header is more than specified
+
 ## Project Installation
 
 **[Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)** the repository
@@ -66,4 +71,5 @@ npm run build
 - [x] Implement rules based on syntax defined [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html)
 - [x] Helper functions to check commit message based on rules
 - [x] Add input parameter `compulsory-scope`
+- [x] Add input parameter `max-header-length`
 - [ ] Add custom **[input parameters](https://help.github.com/en/actions/building-actions/metadata-syntax-for-github-actions#inputs)**

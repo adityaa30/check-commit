@@ -10,7 +10,7 @@ export function getSettings(): IGitActionSettings {
 
     let _maxHeaderLength = parseInt((core.getInput('max-header-length') || '50'));
     if (_maxHeaderLength == NaN || _maxHeaderLength <= 0) {
-        throw new ValueError('Header length should be valid non-zero positive number')
+        throw new ValueError('max-header-length should be valid non-zero positive integer')
     } else {
         settings.maxHeaderLength = _maxHeaderLength;
     }
