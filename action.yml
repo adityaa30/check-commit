@@ -5,9 +5,16 @@ inputs:
   compulsory-scope:
     description: >
       <scope> field will be compulsory inside commit header
-      specify true or false
+      specify true or false. defaults to false
     required: false
     default: "false"
+
+  max-header-length:
+    description: >
+      Maximum length that the header should have
+      defaults to 50
+    required: false
+    default: "50"
 
 runs:
   using: node12

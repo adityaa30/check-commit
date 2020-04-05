@@ -50,6 +50,14 @@ export class Rule {
             this.errors.add(errorMessage);
         }
 
+        // Check for header length
+        if (this.commit.header.length > this.config.maxHeaderLength) {
+            ok = false;this.config.maxHeaderLength
+
+            this.errors.add(`Length of header cannot be more than ${this.config.maxHeaderLength}.
+If required, change the value of input parameter max-header-length in your .yml file`)
+        }
+
         return ok;
     }
 

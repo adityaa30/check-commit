@@ -13,6 +13,13 @@ export class MultipleInvalid extends Error {
     }
 }
 
+export class ValueError extends Error {
+    constructor(message?: string | undefined) {
+        super(message);
+        this.name = "ValueError";
+    }
+}
+
 export class ErrorCollector {
     private errors: string[] = [];
 

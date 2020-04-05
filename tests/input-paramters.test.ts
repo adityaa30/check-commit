@@ -1,4 +1,4 @@
-import IGitActionSettings from "../src/settings";
+import { getDefaultSettings } from "../src/settings";
 import { getConfig } from "../src/config";
 import { Rule } from "../src/message-helper";
 
@@ -17,7 +17,7 @@ feat: Sample commit subject with no scope
     };
 
     it('compulsory-scope is set true', () => {
-        const settings = ({} as unknown) as IGitActionSettings;
+        const settings = getDefaultSettings();
         settings.compulsoryScope = true;
 
         const config = getConfig(settings);
@@ -30,7 +30,7 @@ feat: Sample commit subject with no scope
     });
 
     it('compulsory-scope is set false', () => {
-        const settings = ({} as unknown) as IGitActionSettings;
+        const settings = getDefaultSettings();
         settings.compulsoryScope = false;
 
         const config = getConfig(settings);

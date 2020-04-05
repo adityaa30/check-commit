@@ -1,4 +1,4 @@
-import IGitActionSettings from "../src/settings";
+import { getDefaultSettings } from "../src/settings";
 import { getConfig } from "../src/config";
 import { Rule } from "../src/message-helper";
 
@@ -15,8 +15,7 @@ feat:`,
     };
 
     it('invalid commit body & header', () => {
-        const settings = {} as IGitActionSettings;
-        settings.compulsoryScope = false;
+        const settings = getDefaultSettings();
 
         const config = getConfig(settings);
 

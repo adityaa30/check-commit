@@ -1,4 +1,4 @@
-import IGitActionSettings from "./settings";
+import { IGitActionSettings} from "./settings";
 
 export interface RegexHeader {
     type: RegExp;
@@ -14,6 +14,9 @@ export interface IConfig {
 
     // Body strictly has first line empty
     body: RegExp;
+
+    // Max allowed header length
+    maxHeaderLength: number;
 };
 
 export function getConfig(settings: IGitActionSettings): IConfig {
@@ -31,6 +34,8 @@ export function getConfig(settings: IGitActionSettings): IConfig {
     }
 
     config.body = /^\n(.+\s*)*/;
+
+    config.maxHeaderLength = settings.maxHeaderLength;
 
     return config;
 };
