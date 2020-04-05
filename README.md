@@ -34,7 +34,7 @@ jobs:
 
 - `compulsory-scope`
   - Either 'true' or 'false'
-  - Defaults to 'true'
+  - Defaults to 'false'
   - If true, scope field becomes compulsory for each commit (refer [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html))
 
 ## Project Installation

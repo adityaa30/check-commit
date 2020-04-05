@@ -25,12 +25,12 @@ export function getConfig(settings: IGitActionSettings): IConfig {
     config.header.subject = /.+/; // Strictly has atleast on charater
 
     if (settings.compulsoryScope) {
-        config.header.combined = /([a-zA-Z]+)\(([a-zA-Z]+)\): (.+)/;
+        config.header.combined = /([a-zA-Z]+)\(([a-zA-Z]+)\)!?: (.+)/;
     } else {
-        config.header.combined = /([a-zA-Z]+)(\(([a-zA-Z]+)\))?: (.+)/;
+        config.header.combined = /([a-zA-Z]+)(\(([a-zA-Z]+)\))?!?: (.+)/;
     }
 
-    config.body = /\s*\n(.+)/;
+    config.body = /^\n(.+\s*)*/;
 
     return config;
 };

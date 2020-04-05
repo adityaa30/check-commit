@@ -1,18 +1,16 @@
-import * as core from "@actions/core";
-
 import Commit from "./commit";
-import ErrorCollector from "./error-helper";
-
+import { ErrorCollector } from "./error-helper";
 import { IConfig } from "./config";
 
 export const ALLOWED_TYPES = {
     feat: 'new feature for the user, not a new feature for build script',
     fix: 'bug fix for the user, not a fix to a build script',
+    build: 'add required/missing build file',
+    chore: 'updating grunt tasks etc; no production code change',
     docs: 'changes to the documentation',
     style: 'formatting, missing semi colons, etc; no production code change',
     refactor: 'refactoring production code, eg. renaming a variable',
     test: 'adding missing tests, refactoring tests; no production code change',
-    chore: 'updating grunt tasks etc; no production code change',
 };
 
 export class Rule {
@@ -30,7 +28,6 @@ export class Rule {
     private checkHeader(): boolean {
         let header = this.commit.header.match(this.config.header.combined);
         let ok = true;
-        core.debug(`Checking commit header:\n${this.commit.header}`);
 
         if (header == null) {
             ok = false;
@@ -60,7 +57,6 @@ export class Rule {
         if (!this.commit.hasBody) return true;
 
         let ok = true;
-        core.debug(`Checking commit body:\n${this.commit.body}`);
 
         let body = this.commit.body.match(this.config.body);
         if (body == null) {
@@ -77,8 +73,10 @@ export class Rule {
 
         this.errors.clear();
 
-        ok = ok && this.checkHeader();
-        ok = ok && this.checkBody();
+        let result1 = this.checkHeader();
+        let result2 = this.checkBody();
+
+        ok = result1 && result2;
 
         if (!ok)
             throw this.errors.getCollectiveError();

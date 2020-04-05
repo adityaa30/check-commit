@@ -7,7 +7,7 @@ inputs:
       <scope> field will be compulsory inside commit header
       specify true or false
     required: false
-    default: "true"
+    default: "false"
 
 runs:
   using: node12

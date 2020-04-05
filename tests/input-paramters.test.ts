@@ -5,40 +5,40 @@ import { Rule } from "../src/message-helper";
 describe('Input parameters tests', () => {
     const commits = {
         scope: `commit 1828fab3d3445932b38beb648989605efb8ea70fe
-        feat(input): Sample commit subject with scope
+feat(input): Sample commit subject with scope
 
-        - Sample commit body
-        - Explanation sample`,
+- Sample commit body
+- Explanation sample`,
         noscope: `commit 1828fab3d3445932b38beb648989605efb8ea70fe
-        feat: Sample commit subject with no scope
+feat: Sample commit subject with no scope
 
-        - Sample commit body
-        - Explanation sample`
+- Sample commit body
+- Explanation sample`
     };
 
     it('compulsory-scope is set true', () => {
-        const settings = {} as IGitActionSettings;
+        const settings = ({} as unknown) as IGitActionSettings;
         settings.compulsoryScope = true;
 
         const config = getConfig(settings);
 
-        const ruleOK = new Rule(commits.scope, config);
-        const ruleError = new Rule(commits.noscope, config);
+        const rule1 = new Rule(commits.scope, config);
+        const rule2 = new Rule(commits.noscope, config);
 
-        expect(ruleOK.check()).toEqual(true);
-        expect(ruleError.check).toThrow(Error);
+        expect(rule1.check()).toEqual(true);
+        expect(() => rule2.check()).toThrow(Error);
     });
 
     it('compulsory-scope is set false', () => {
-        const settings = {} as IGitActionSettings;
+        const settings = ({} as unknown) as IGitActionSettings;
         settings.compulsoryScope = false;
 
         const config = getConfig(settings);
 
-        const ruleOK = new Rule(commits.noscope, config);
-        const ruleOk2 = new Rule(commits.scope, config);
+        const rule1 = new Rule(commits.noscope, config);
+        const rule2 = new Rule(commits.scope, config);
 
-        expect(ruleOK.check()).toEqual(true);
-        expect(ruleOk2.check()).toEqual(true);
+        expect(rule1.check()).toEqual(true);
+        expect(rule2.check()).toEqual(true);
     });
 });
