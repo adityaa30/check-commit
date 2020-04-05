@@ -20,6 +20,7 @@ async function run(): Promise<void> {
         rule.check(); // raises an exception if any problem occurs
 
         // No problem occured. Commit message is OK
+        core.info('Commit message is OK 😉🎉');
     } catch (err) {
         core.setFailed(`Action failed with error
         ${err.stack}`);

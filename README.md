@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Check commit
         uses: adityaa30/check-commit@master
 ```
@@ -60,7 +60,7 @@ cd check-commit
 # Install dependencies
 npm install
 
-# Buld the project
+# Build the project
 npm run build
 ```
 
