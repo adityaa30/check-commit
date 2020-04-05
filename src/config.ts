@@ -1,6 +1,7 @@
-import { IGitActionSettings} from "./settings";
+import { IGitActionSettings } from "./settings";
 
 export interface RegexHeader {
+    fixup: RegExp;
     type: RegExp;
     scope: RegExp;
     subject: RegExp;
@@ -15,6 +16,9 @@ export interface IConfig {
     // Body strictly has first line empty
     body: RegExp;
 
+    // <scope> field will be compulsory
+    compulsoryScope: boolean;
+
     // Max allowed header length
     maxHeaderLength: number;
 };
@@ -23,6 +27,7 @@ export function getConfig(settings: IGitActionSettings): IConfig {
     const config = {} as IConfig;
     config.header = {} as RegexHeader;
 
+    config.header.fixup = /(fixup! )*/;
     config.header.type = /[a-zA-Z]+/;
     config.header.scope = /\(([a-zA-Z]+)\)/;
     config.header.subject = /.+/; // Strictly has atleast on charater
@@ -35,6 +40,7 @@ export function getConfig(settings: IGitActionSettings): IConfig {
 
     config.body = /^\n(.+\s*)*/;
 
+    config.compulsoryScope = settings.compulsoryScope;
     config.maxHeaderLength = settings.maxHeaderLength;
 
     return config;

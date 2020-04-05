@@ -1,3 +1,5 @@
+import * as core from "@actions/core";
+
 import Commit from "./commit";
 import { ErrorCollector } from "./error-helper";
 import { IConfig } from "./config";
@@ -23,6 +25,18 @@ export class Rule {
         this.errors = new ErrorCollector();
 
         this.config = config;
+    }
+
+    private removeFixups() {
+        const fixup = 'fixup! ';
+        let found = false;
+        while (this.commit.header.substr(0, fixup.length) === fixup) {
+            found = true;
+            this.commit.header = this.commit.header.substring(fixup.length);
+        }
+        if (found) {
+            core.info("'fixup!' found in the commit header.\nPlease remove it before merge 🙂");
+        }
     }
 
     private checkHeader(): boolean {
@@ -52,7 +66,7 @@ export class Rule {
 
         // Check for header length
         if (this.commit.header.length > this.config.maxHeaderLength) {
-            ok = false;this.config.maxHeaderLength
+            ok = false; this.config.maxHeaderLength
 
             this.errors.add(`Length of header cannot be more than ${this.config.maxHeaderLength}.
 If required, change the value of input parameter max-header-length in your .yml file`)
@@ -80,6 +94,7 @@ If required, change the value of input parameter max-header-length in your .yml 
         let ok = true;
 
         this.errors.clear();
+        this.removeFixups();
 
         let result1 = this.checkHeader();
         let result2 = this.checkBody();
