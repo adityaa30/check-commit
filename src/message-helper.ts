@@ -13,6 +13,7 @@ export const ALLOWED_TYPES = {
     style: 'formatting, missing semi colons, etc; no production code change',
     refactor: 'refactoring production code, eg. renaming a variable',
     test: 'adding missing tests, refactoring tests; no production code change',
+    update: 'update an old feature; file;'
 };
 
 /** Headers which will be ignored while checking
