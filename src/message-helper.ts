@@ -27,7 +27,7 @@ export class Rule {
         this.config = config;
     }
 
-    private removeFixups() {
+    private removeFixups(): boolean {
         const fixup = 'fixup! ';
         let found = false;
         while (this.commit.header.substr(0, fixup.length) === fixup) {
@@ -36,7 +36,14 @@ export class Rule {
         }
         if (found) {
             core.info("'fixup!' found in the commit header.\nPlease remove it before merge 🙂");
+
+            // fixup! body should not be present (optional)
+            if(this.commit.header.length === 0) {
+                core.warning("'fixup!' commits generally dont have a body");
+            }
         }
+
+        return found;
     }
 
     private checkHeader(): boolean {
@@ -46,22 +53,41 @@ export class Rule {
         if (header == null) {
             ok = false;
 
-            // TODO: Check where is the problem exactly and raise exception with more accurate error message
             this.errors.add(
                 'Header does not follow the format : '
                 + '<type>(<scope>): <subject>'
             );
 
-        } else if (!Object.keys(ALLOWED_TYPES).includes(header[1].toLowerCase())) {
-            // Check if type is OK
-            ok = false;
+        } else {
+            const type = header[1];
+            const scope = header[3];
+            const subject = header[4];
 
-            let errorMessage = 'Type should be one of\n';
-            Object.keys(ALLOWED_TYPES).forEach(val => {
-                errorMessage += `${val} - ${ALLOWED_TYPES[val]}\n`;
-            });
+            // Check if type is a valid type
+            if (!Object.keys(ALLOWED_TYPES).includes(type.toLowerCase())) {
+                // Check if type is OK
+                ok = false;
 
-            this.errors.add(errorMessage);
+                let errorMessage = 'Type should be one of\n';
+                Object.keys(ALLOWED_TYPES).forEach(val => {
+                    errorMessage += `${val} - ${ALLOWED_TYPES[val]}\n`;
+                });
+
+                this.errors.add(errorMessage);
+            }
+
+            // Check if scope has '-' symbol at start or end?
+            if (typeof scope == 'undefined' && !this.config.compulsoryScope) {
+                // Its OK as scope is not compulsory
+            } else if (typeof scope == 'undefined' && this.config.compulsoryScope) {
+                ok = false;
+
+                this.errors.add("Scope is compulsory inside the commit header")
+            } else if (scope[0] == '-' || scope[scope.length - 1] == '-') {
+                ok = false;
+
+                this.errors.add("Scope cannot have '-' at the start or end");
+            }
         }
 
         // Check for header length
@@ -69,7 +95,7 @@ export class Rule {
             ok = false; this.config.maxHeaderLength
 
             this.errors.add(`Length of header cannot be more than ${this.config.maxHeaderLength}.
-If required, change the value of input parameter max-header-length in your .yml file`)
+If required, change the value of input parameter max-header-length in your .yml file`);
         }
 
         return ok;

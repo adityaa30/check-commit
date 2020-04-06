@@ -29,13 +29,13 @@ export function getConfig(settings: IGitActionSettings): IConfig {
 
     config.header.fixup = /(fixup! )*/;
     config.header.type = /[a-zA-Z]+/;
-    config.header.scope = /\(([a-zA-Z]+)\)/;
+    config.header.scope = /\(([a-zA-Z\-]+)\)/;
     config.header.subject = /.+/; // Strictly has atleast on charater
 
     if (settings.compulsoryScope) {
-        config.header.combined = /([a-zA-Z]+)\(([a-zA-Z]+)\)!?: (.+)/;
+        config.header.combined = /([a-zA-Z]+)(\(([a-zA-Z\-]+)\))!?: (.+)/;
     } else {
-        config.header.combined = /([a-zA-Z]+)(\(([a-zA-Z]+)\))?!?: (.+)/;
+        config.header.combined = /([a-zA-Z]+)(\(([a-zA-Z\-]+)\))?!?: (.+)/;
     }
 
     config.body = /^\n(.+\s*)*/;
