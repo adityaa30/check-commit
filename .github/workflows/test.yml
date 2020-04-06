@@ -8,16 +8,29 @@ on:
       - releases/**
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - uses: actions/checkout@v2
-      - name: Download Dependencies
-        run: npm install
-      - name: Build the project
-        run: npm run build
-      - name: Run the tests
-        run: npm run test
+    - uses: actions/checkout@v2
+
+    - name: Cache node modules
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build
+      run: npm build
+
+    - name: Test
+      run: npm test
