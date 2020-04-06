@@ -15,6 +15,13 @@ export const ALLOWED_TYPES = {
     test: 'adding missing tests, refactoring tests; no production code change',
 };
 
+/** Headers which will be ignored while checking
+ * Comparison is done ignoring the case */
+export const HEADER_EXCEPTIONS: RegExp[] = [
+    /^initial commit/i,
+    /^merge pull request #\d*/i
+];
+
 export class Rule {
     private commit: Commit;
     private errors: ErrorCollector;
@@ -38,12 +45,24 @@ export class Rule {
             core.info("'fixup!' found in the commit header.\nPlease remove it before merge 🙂");
 
             // fixup! body should not be present (optional)
-            if(this.commit.header.length === 0) {
+            if (this.commit.header.length === 0) {
                 core.warning("'fixup!' commits generally dont have a body");
             }
         }
 
         return found;
+    }
+
+    /** Checks if header is an exception case
+     * i.e is one of HEADER_EXCEPTION
+     * If found, returns true */
+    private checkHeaderException(): boolean {
+        for (let i = 0; i < HEADER_EXCEPTIONS.length; ++i) {
+            const match = this.commit.header.match(HEADER_EXCEPTIONS[i]);
+            if (match != null) return true;
+        }
+
+        return false;
     }
 
     private checkHeader(): boolean {
@@ -122,10 +141,8 @@ If required, change the value of input parameter max-header-length in your .yml 
         this.errors.clear();
         this.removeFixups();
 
-        let result1 = this.checkHeader();
-        let result2 = this.checkBody();
-
-        ok = result1 && result2;
+        if (!this.checkHeaderException()) ok = this.checkHeader() && ok;
+        ok = this.checkBody() && ok;
 
         if (!ok)
             throw this.errors.getCollectiveError();

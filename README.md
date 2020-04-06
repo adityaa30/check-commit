@@ -76,4 +76,5 @@ npm run build
 - [x] Helper functions to check commit message based on rules
 - [x] Add input parameter `compulsory-scope`
 - [x] Add input parameter `max-header-length`
+- [ ] Provide a **[CLI](https://en.wikipedia.org/wiki/Command-line_interface)**
 - [ ] Add custom **[input parameters](https://help.github.com/en/actions/building-actions/metadata-syntax-for-github-actions#inputs)**
