@@ -20,7 +20,8 @@ export const ALLOWED_TYPES = {
  * Comparison is done ignoring the case */
 export const HEADER_EXCEPTIONS: RegExp[] = [
     /^initial commit/i,
-    /^merge pull request #\d*/i
+    /^merge pull request #\d*/i,
+    /^merge .* into .*/i
 ];
 
 export class Rule {
