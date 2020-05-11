@@ -3,9 +3,9 @@
     <img alt="GitHub Actions status" src="https://github.com/actions/checkout/workflows/Build%20and%20Test/badge.svg">
 </a>
 
-# Check Commit Syntax
+# Check Commit Message
 
-Action to check if the commit follows proper syntax as specified [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html)
+Action to check if the commit follows proper guidelines as specified [here](http://karma-runner.github.io/latest/dev/git-commit-msg.html)
 
 ## Usage
 
@@ -16,13 +16,9 @@ your repository then use this [action](https://github.com/adityaa30/check-commit
 Refer to the example below,
 
 ```yaml
-name: Check Commit
+name: Check Commit Message
 
-on:
-  pull_request:
-  push:
-    branches:
-      - "*"
+on: [pull_request, push]
 
 jobs:
   check:
@@ -76,5 +72,5 @@ npm run build
 - [x] Helper functions to check commit message based on rules
 - [x] Add input parameter `compulsory-scope`
 - [x] Add input parameter `max-header-length`
-- [ ] Provide a **[CLI](https://en.wikipedia.org/wiki/Command-line_interface)**
+- [ ] Add a **[CLI](https://en.wikipedia.org/wiki/Command-line_interface)**
 - [ ] Add custom **[input parameters](https://help.github.com/en/actions/building-actions/metadata-syntax-for-github-actions#inputs)**

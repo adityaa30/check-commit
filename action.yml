@@ -1,4 +1,4 @@
-name: "Check Commit"
+name: "Check Commit Message"
 description: "Action to check if the commit follows proper syntax"
 
 inputs:
@@ -19,3 +19,7 @@ inputs:
 runs:
   using: node12
   main: dist/index.js
+
+branding:
+  icon: 'message-circle'
+  color: 'green'

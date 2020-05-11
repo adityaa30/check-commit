@@ -1,10 +1,6 @@
-name: Check Commit
+name: Check Commit Message
 
-on:
-  pull_request:
-  push:
-    branches:
-      - "*"
+on: [pull_request, push]
 
 jobs:
   check:
