@@ -18,6 +18,12 @@ feat(web-server): Sample commit with scope
     scope2: `commit ${randomSHA()}
 feat(web-server-addon): Sample commit with-scope`,
 
+
+  scopeHyphenNumber1: `commit ${randomSHA()}
+feat(hello-123): Sample commit with-scope`,
+  scopeHyphenNumber2: `commit ${randomSHA()}
+feat(123-hello): Sample commit with-scope`,
+
     invalidScope1: `commit ${randomSHA()}
 feat(-hello): Sample commit with-scope`,
     invalidScope2: `commit ${randomSHA()}
@@ -68,10 +74,17 @@ docs(readme): Add workflow status badges (#31)`,
     const rule2 = createRule(commits.invalidScope2);
     const rule3 = createRule(commits.invalidScope3);
 
-
     expect(() => rule1.check()).toThrow(Error);
     expect(() => rule2.check()).toThrow(Error);
     expect(() => rule3.check()).toThrow(Error);
+  });
+
+  it("Scope with '-' followed by numbers at start/end", () => {
+    const rule1 = createRule(commits.scopeHyphenNumber1);
+    const rule2 = createRule(commits.scopeHyphenNumber2);
+
+    expect(rule1.check()).toEqual(true);
+    expect(rule2.check()).toEqual(true);
   });
 
   it("Invalid headers", () => {
