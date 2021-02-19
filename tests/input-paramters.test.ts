@@ -4,7 +4,7 @@ import { getDefaultSettings } from "../src/settings";
 import { getConfig } from "../src/config";
 import { Rule } from "../src/message-helper";
 
-describe('Input parameters tests', () => {
+describe("Input parameters tests", () => {
   const commits = {
     fixup: `commit ${randomSHA()}
 fixup! fixup! feat(input): Sample commit fixup! with scope
@@ -34,7 +34,7 @@ fixup! fixup! fixup! feat: samp`,
 feat: sample`
   };
 
-  it('compulsory-scope is set true', () => {
+  it("compulsory-scope is set true", () => {
     const settings = getDefaultSettings();
     settings.compulsoryScope = true;
 
@@ -49,7 +49,7 @@ feat: sample`
     expect(rule3.check()).toEqual(true);
   });
 
-  it('compulsory-scope is set false', () => {
+  it("compulsory-scope is set false", () => {
     const settings = getDefaultSettings();
     settings.compulsoryScope = false;
 
@@ -64,7 +64,7 @@ feat: sample`
     expect(rule3.check()).toEqual(true);
   });
 
-  it('very long header', () => {
+  it("very long header", () => {
     const settings = getDefaultSettings();
     const config = getConfig(settings);
 
@@ -75,7 +75,7 @@ feat: sample`
     expect(rule2.check()).toEqual(true);
   });
 
-  it('max-header-length = 10', () => {
+  it("max-header-length = 10", () => {
     const settings = getDefaultSettings();
     settings.maxHeaderLength = 10;
 

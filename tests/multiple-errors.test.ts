@@ -6,17 +6,17 @@ import { Rule } from "../src/message-helper";
 
 import { MultipleInvalid } from "../src/error-helper";
 
-describe('Multiple errors tests', () => {
+describe("Multiple errors tests", () => {
   const invalidCommits = {
     BodyHeader: `commit ${randomSHA()}
 feat(input: Sample commit subject with scope
 - Sample commit body
 - Explanation sample`,
     EmptySubjectBody: `commit ${randomSHA()}
-feat:`,
+feat:`
   };
 
-  it('invalid commit body & header', () => {
+  it("invalid commit body & header", () => {
     const settings = getDefaultSettings();
 
     const config = getConfig(settings);

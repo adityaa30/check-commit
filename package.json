@@ -5,7 +5,11 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc && ncc build -m",
-    "test": "jest --no-cache"
+    "test": "jest --no-cache",
+    "format:cli": "prettier --config='.prettierrc' --write",
+    "format:src:ts": "npm run format:cli 'src/**/*.ts'",
+    "format:tests:ts": "npm run format:cli 'tests/**/*.ts'",
+    "format": "npm run format:src:ts && npm run format:tests:ts"
   },
   "repository": {
     "type": "git",
@@ -31,6 +35,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/exec": "^1.0.4",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^4.0.0",
+    "prettier": "^2.2.1"
   }
 }

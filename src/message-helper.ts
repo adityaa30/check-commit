@@ -4,7 +4,7 @@ import Commit from "./commit";
 import { ErrorCollector } from "./error-helper";
 import { IConfig } from "./config";
 
-export const ALLOWED_TYPES: {[index:string]: string} = {
+export const ALLOWED_TYPES: { [index: string]: string } = {
   feat: "new feature for the user, not a new feature for build script",
   fix: "bug fix for the user, not a fix to a build script",
   build: "add required/missing build file",
@@ -13,7 +13,7 @@ export const ALLOWED_TYPES: {[index:string]: string} = {
   style: "formatting, missing semi colons, etc; no production code change",
   refactor: "refactoring production code, eg. renaming a variable",
   test: "adding missing tests, refactoring tests; no production code change",
-  update: "update an old feature; file;",
+  update: "update an old feature; file;"
 };
 
 /** Headers which will be ignored while checking
@@ -21,7 +21,7 @@ export const ALLOWED_TYPES: {[index:string]: string} = {
 export const HEADER_EXCEPTIONS: RegExp[] = [
   /^initial commit/i,
   /^merge pull request #\d*/i,
-  /^merge .* into .*/i,
+  /^merge .* into .*/i
 ];
 
 export class Rule {

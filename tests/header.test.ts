@@ -68,7 +68,7 @@ Merge ${randomSHA()} into ${randomSHA()}`,
     sample1: `commit ${randomSHA()}
 docs(readme): Add workflow status badges`,
     sample2: `commit ${randomSHA()}
-docs(readme): Add workflow status badges (#31)`,
+docs(readme): Add workflow status badges (#31)`
   };
 
   const createRule = (message: string) => {
