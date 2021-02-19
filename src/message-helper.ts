@@ -49,7 +49,7 @@ export class Rule {
       );
 
       // fixup! body should not be present (optional)
-      if (this.commit.header.length === 0) {
+      if (this.commit.body.length === 0) {
         core.warning("'fixup!' commits generally dont have a body");
       }
     }

@@ -49,10 +49,15 @@ feat(hello-world)wrong: Sample commit with-scope`,
 hello Initial Commit`,
 
     fixup1: `commit ${randomSHA()}
+fixup! fixup! fix(web-server): Sample subject`,
+    fixup2: `commit ${randomSHA()}
+fixup! feat(web): Sample subject with fixup!`,
+
+    fixupWithBody1: `commit ${randomSHA()}
 fixup! fixup! fix(web-server): Sample subject
 
 - Sample commit fixup!`,
-    fixup2: `commit ${randomSHA()}
+    fixupWithBody2: `commit ${randomSHA()}
 fixup! feat(web): Sample subject with fixup!
 
 - Sample commit fixup!
@@ -68,7 +73,14 @@ Merge ${randomSHA()} into ${randomSHA()}`,
     sample1: `commit ${randomSHA()}
 docs(readme): Add workflow status badges`,
     sample2: `commit ${randomSHA()}
-docs(readme): Add workflow status badges (#31)`
+docs(readme): Add workflow status badges (#31)`,
+
+    invalidType1: `commit ${randomSHA()}
+notok(web-server): Sample commit
+
+- Sample commit`,
+    invalidType2: `commit ${randomSHA()}
+invalid(web-server-addon): Sample commit`
   };
 
   const createRule = (message: string) => {
@@ -135,6 +147,14 @@ docs(readme): Add workflow status badges (#31)`
     expect(rule2.check()).toEqual(true);
   });
 
+  it("Header has `fixup!` with body", () => {
+    const rule1 = createRule(commits.fixupWithBody1);
+    const rule2 = createRule(commits.fixupWithBody2);
+
+    expect(rule1.check()).toEqual(true);
+    expect(rule2.check()).toEqual(true);
+  });
+
   it("Check for header exceptions", () => {
     const rule1 = createRule(commits.exception1);
     const rule2 = createRule(commits.exception2);
@@ -151,6 +171,14 @@ docs(readme): Add workflow status badges (#31)`
 
     expect(rule1.check()).toEqual(true);
     expect(rule2.check()).toEqual(true);
+  });
+
+  it("Invalid Header Type", () => {
+    const rule1 = createRule(commits.invalidType1);
+    const rule2 = createRule(commits.invalidType2);
+
+    expect(() => rule1.check()).toThrow(Error);
+    expect(() => rule2.check()).toThrow(Error);
   });
 
   it("Compulsory Scope (input header has scope)", () => {
