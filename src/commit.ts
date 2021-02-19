@@ -1,5 +1,3 @@
-import * as core from "@actions/core";
-
 export default class Commit {
     sha: string;
     header: string;

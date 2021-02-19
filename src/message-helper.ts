@@ -4,7 +4,7 @@ import Commit from "./commit";
 import { ErrorCollector } from "./error-helper";
 import { IConfig } from "./config";
 
-export const ALLOWED_TYPES = {
+export const ALLOWED_TYPES: {[index:string]: string} = {
   feat: "new feature for the user, not a new feature for build script",
   fix: "bug fix for the user, not a fix to a build script",
   build: "add required/missing build file",
@@ -82,7 +82,6 @@ export class Rule {
     } else {
       const type = header[1];
       const scope = header[3];
-      const subject = header[4];
 
       // Check if type is a valid type
       if (!Object.keys(ALLOWED_TYPES).includes(type.toLowerCase())) {
