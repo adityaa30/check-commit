@@ -34,14 +34,16 @@ feat(123-hello): Sample commit with-scope (#12)`,
     invalidScopeAtBeginning1: `commit ${randomSHA()}
 (hello-123)feat: Sample commit`,
     invalidScopeAtBeginning2: `commit ${randomSHA()}
-(123)fix: Sample commit`,
-
+    
+    (123)fix: Sample commit`,
     invalidScope1: `commit ${randomSHA()}
 feat(-hello): Sample commit with-scope`,
     invalidScope2: `commit ${randomSHA()}
 feat(web-server-addon-): Sample commit with-scope`,
     invalidScope3: `commit ${randomSHA()}
 feat(---): Sample commit with-scope`,
+    invalidScope4: `commit ${randomSHA()}
+feat(hello-world)wrong: Sample commit with-scope`,
 
     invalid1: `commit ${randomSHA()}
 hello Initial Commit`,
@@ -93,10 +95,12 @@ docs(readme): Add workflow status badges (#31)`,
     const rule1 = createRule(commits.invalidScope1);
     const rule2 = createRule(commits.invalidScope2);
     const rule3 = createRule(commits.invalidScope3);
+    const rule4 = createRule(commits.invalidScope4);
 
     expect(() => rule1.check()).toThrow(Error);
     expect(() => rule2.check()).toThrow(Error);
     expect(() => rule3.check()).toThrow(Error);
+    expect(() => rule4.check()).toThrow(Error);
   });
 
   it("Scope placed before header", () => {
