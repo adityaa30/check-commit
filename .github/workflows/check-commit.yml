@@ -6,7 +6,9 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Check commit
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Check commit 🧪
         uses: adityaa30/check-commit@master
+
