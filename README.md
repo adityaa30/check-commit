@@ -24,9 +24,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout 🛎️
         uses: actions/checkout@v2
-      - name: Check commit
+
+      - name: Check commit 🧪
         uses: adityaa30/check-commit@master
 ```
 
